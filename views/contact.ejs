@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title><%= title%></title>
+    <link rel="stylesheet" type="text/css" href="/css/contact.css">
+</head>
+<body>
+    <header>
+        <h1 class="section-heading">
+            <span>
+                <i class="far fa-address-card"></i>
+            </span>
+            <span> Contact Lists</span>
+        </h1>
+    </header>
+
+    <div class="main-box-contact">
+        <ul id="list">
+            <% for (let i of contact_list) {%>
+                <li class="contact">
+                    <span id="details">
+                        <p><%= i.name %></p>
+                        <p><%= i.phone %></p>
+                    </span>
+                    <span class="delete-button">
+                        <a href="/delete-contact/?id=<%= i._id %>">
+                            <i class="fas fa-window-close"></i>
+                        </a>
+                    </span>
+                </li>    
+                <%}
+            %>
+        </ul>
+    </div>
+    <form action="/create-contact" method="post">
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <input type="number" name="phone" placeholder="Enter Phone number" required>
+        <button type="submit">Add Contact</button>
+    </form>
+</body>
+</html>

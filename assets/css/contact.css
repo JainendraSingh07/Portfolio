@@ -1,0 +1,35 @@
+body{
+    width: 41%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.5rem;
+    /* margin: 0%; */
+    align-items: center;
+    margin: auto;
+    margin-top: 0%;
+}
+
+.section-heading{
+    font-size: xx-large;
+    color: #0a17c1;
+}
+
+.delete-button a i{
+    color: red;
+    font-size: 32px;
+}
+
+.delete-button a i:hover{
+    color: rgb(235, 112, 11);
+}
+
+/*.main-box-contact{
+   background-image: linear-gradient(180deg, #0eb8bd, transparent);
+}
+*/
+
+.main-box-contact ul li {
+    background: #3b37e5;
+    list-style: none;
+    display: list-item;
+}
