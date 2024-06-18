@@ -9,7 +9,7 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const cookieParser = require('cookie-parser');
 
-app.use('/', require('./routes/user.js'));
+
 app.use('/', require('./routes/index.js'));
 
 
