@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sign In</title>
-</head>
-<body>
-    <h1>Sign In</h1>
-    <form action="/users/create_session" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
+<h1>Sign In</h1>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+<form action="/message/user/create-session" method="POST">
+    <input type="email" name="email" placeholder="Email"  required>
+    <input type="password" name="password" placeholder="Password"  required>
+    <input type="submit" value="Sign In">
 
-        <button type="submit">Sign In</button>
-    </form>
-</body>
-</html>
+</form>
