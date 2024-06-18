@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const port = 8000;
+const port = 4000;  // Change to a different port number
 const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -10,17 +10,16 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.json());
-
 app.use(express.static('assets'));
 app.use(cookieParser());
+
 // Setting up a template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(session({
-    name: 'contact',
+    name: 'WebAL',
     secret: 'blah something',
     saveUninitialized: false,
     resave: false,
@@ -35,7 +34,7 @@ app.use(passport.session());
 
 // Define the route to handle the root URL
 app.get('/', function (req, res) {
-    return res.render('index', { title: "Welcome to WebAL" });
+    return res.render('index', { title: "Jainendra Singh" });
 });
 
 app.use('/', require('./routes/index.js')); // Routes should be added after middleware

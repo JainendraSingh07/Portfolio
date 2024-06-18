@@ -2,16 +2,10 @@ const User = require('../models/user');
 
 module.exports.profile = async function(req, res) {
     try {
-        if (req.cookies.user_id) {
-            // Find the user by ID using async/await
-            const user = await User.findById(req.cookies.user_id);
-            if (user) {
-                return res.render('user_profile', {
-                    title: "User Profile",
-                    user: user
-                });
-            }
-        }
+        return res.render('user_profile', {
+            title: "User Profile",
+            user: req.user
+        });
     } catch (err) {
         console.log('Error in finding user:', err);
         return res.redirect('/message/user/sign-in');
@@ -56,23 +50,7 @@ module.exports.create = async function(req, res) {
     }
 }
 
-// sign in and create a session for the user
-module.exports.createSession = async function(req, res) {
-    try {
-        let user = await User.findOne({ email: req.body.email });
-
-        if (user) {
-            if (user.password !== req.body.password) {
-                return res.redirect('back');
-            }
-
-            res.cookie('user_id', user.id);
-            return res.redirect('/message/user/profile');
-        } else {
-            return res.redirect('back');
-        }
-    } catch (err) {
-        console.log('Error in finding user in signing in:', err);
-        return res.redirect('back');
-    }
-};
+// Sign in and create a session for the user
+module.exports.createSession = function(req, res) {
+    return res.redirect('/message/user/profile');
+}
