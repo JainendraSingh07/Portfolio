@@ -1,35 +1,92 @@
-body{
-    width: 41%;
+body {
+    width: 80%;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     padding-left: 0.5rem;
-    /* margin: 0%; */
     align-items: center;
     margin: auto;
-    margin-top: 0%;
+    margin-top: 2rem;
+    font-family: Arial, sans-serif;
 }
 
-.section-heading{
+.section-heading {
     font-size: xx-large;
     color: #0a17c1;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
-.delete-button a i{
+.delete-button a i {
     color: red;
     font-size: 32px;
+    cursor: pointer;
 }
 
-.delete-button a i:hover{
+.delete-button a i:hover {
     color: rgb(235, 112, 11);
 }
 
-/*.main-box-contact{
-   background-image: linear-gradient(180deg, #0eb8bd, transparent);
+.main-box-contact {
+    width: 100%;
+    margin-bottom: 2rem;
 }
-*/
+
+.main-box-contact ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+}
 
 .main-box-contact ul li {
     background: #3b37e5;
-    list-style: none;
-    display: list-item;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.main-box-contact ul li:hover {
+    background: #2e30c9;
+}
+
+.main-box-contact ul li #details p {
+    margin: 0;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+form input, form button {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form input {
+    width: calc(100% - 1rem);
+}
+
+form button {
+    background: #0a17c1;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: calc(100% - 1rem);
+}
+
+form button:hover {
+    background: #0d1ea8;
 }
