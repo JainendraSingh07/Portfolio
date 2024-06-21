@@ -1,5 +1,6 @@
 const User = require('../models/user');
 
+
 module.exports.profile = async function(req, res) {
     try {
         return res.render('user_profile', {
@@ -13,12 +14,19 @@ module.exports.profile = async function(req, res) {
 };
 
 module.exports.signUp = function(req, res) {
+    if(req.isAuthenticated()){
+       return res.redirect('/message/user/profile');
+    }
     return res.render('user_sign_up', {
         title: "WebAL | Sign Up"
     });
 }
 
 module.exports.signIn = function(req, res) {
+    if(req.isAuthenticated()){
+       return  res.redirect('/message/user/profile');
+     }
+
     return res.render('user_sign_in', {
         title: "WebAL | Sign In"
     });

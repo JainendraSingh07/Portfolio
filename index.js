@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
-const port = 4000;  // Change to a different port number
+const port = 5502;  // Change to a different port number
 const db = require('./config/mongoose');
+const Contact = require('./models/contact');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -25,17 +27,38 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000 * 60 * 100)
-    }
+    },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/contact_list_db',
+        autoRemove: 'disabled'
+    })
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use(passport.setAuthenticatedUser);
 
+var contactList = [
+    {
+        name: "Arpan",
+        phone: "1111111111"
+    },
+    {
+        name: "Tony Stark",
+        phone: "1234567890"
+    },
+    {
+        name: "Coding Ninjas",
+        phone: "12131321321"
+    }
+]
+
+
 // Define the route to handle the root URL
 app.get('/', function (req, res) {
     return res.render('index', { title: "Jainendra Singh" });
 });
+
 
 app.use('/', require('./routes/index.js')); // Routes should be added after middleware
 
