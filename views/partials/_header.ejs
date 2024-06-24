@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/header.css">
+
+
+<header id="layout-header">
+    <nav>
+        <div class="mini-logo">
+            <p>
+                <a href='/message'>
+                    WebAl
+                </a>
+            </p>
+        </div>
+    
+        <div class="auth-links">
+            <ul>
+                <% if (locals.user){ %>
+                <li>
+                    <a href="/message/user/profile/<%= locals.user.id %>"><%= user.username %></a>
+                </li>
+                <li>
+                    <a href="/message/user/sign-out">Sign Out</a>
+                </li>
+                <% }else{ %>
+                <li>
+                    <a href="/message/user/sign-in">Sign In</a>
+                </li>
+                <li>
+                    <a href="/message/user/sign-up">Sign Up</a>
+                </li>
+        
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+ 
+
+
+</header>
+

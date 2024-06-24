@@ -26,9 +26,10 @@
                         <p><%= i.phone %></p>
                     </span>
                     <span class="delete-button">
-                        <a href="/delete-contact/?id=<%= i._id %>">
+                        <a href="/delete-contact/<%= i._id %>" data-method="delete" data-confirm="Are you sure?">
                             <i class="fas fa-window-close"></i>
                         </a>
+                        
                     </span>
                 </li>
             <% } %>

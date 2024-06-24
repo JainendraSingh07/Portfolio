@@ -8,6 +8,7 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
+const expressLayouts = require('express-ejs-layouts');
 
 const app = express();
 
@@ -16,9 +17,16 @@ app.use(express.json());
 app.use(express.static('assets'));
 app.use(cookieParser());
 
-// Setting up a template engine
+// Setting up the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Use express-ejs-layouts
+app.use(expressLayouts);
+
+// Set layout options
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
 app.use(session({
     name: 'WebAL',
@@ -51,14 +59,12 @@ var contactList = [
         name: "Coding Ninjas",
         phone: "12131321321"
     }
-]
-
+];
 
 // Define the route to handle the root URL
 app.get('/', function (req, res) {
     return res.render('index', { title: "Jainendra Singh" });
 });
-
 
 app.use('/', require('./routes/index.js')); // Routes should be added after middleware
 
