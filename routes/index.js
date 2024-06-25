@@ -7,4 +7,6 @@ router.get('/message', homeController.home);
 // router.get('/contact', userControllerContact.contact); // Corrected handler reference
 
 router.use('/message/user', require('./user'));
+router.use('/message/posts', require('./posts'));
+
 module.exports = router;
