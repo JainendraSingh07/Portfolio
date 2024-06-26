@@ -1,14 +1,24 @@
-module.exports.home = function(req, res){
-    console.log(req.cookies);   
-    return res.render('webal/home', {
-        title: "WebAL"
-    });
-}
+const Post = require('../models/post');
 
+module.exports.home = async function(req, res) {
+    try {
+        // Find posts and populate the user and comments' user
+        let posts = await Post.find({})
+            .populate('user')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'user'
+                }
+            })
+            .exec();
 
-// module.exports.home = function(req,res){   
-//     return res.render('layout', {
-//         title : "WebAL",
-//          style: '<link rel="stylesheet" href="/css/layout.css">'
-//     });
-// }
+        return res.render('webal/home', {
+            title: "Codeial | Home",
+            posts: posts
+        });
+    } catch (err) {
+        console.error('Error fetching posts:', err);
+        return res.status(500).send('Internal Server Error');
+    }
+};

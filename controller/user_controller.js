@@ -60,7 +60,7 @@ module.exports.create = async function(req, res) {
 
 // Sign in and create a session for the user
 module.exports.createSession = function(req, res) {
-    return res.redirect('/message/user/profile');
+    return res.redirect('/message');
 }
 
 module.exports.destroySession = function(req, res){

@@ -2,13 +2,24 @@ const Post = require('../models/post');
 
 module.exports.create = async function(req, res) {
     try {
-        const post = await Post.create({
+        let post = await Post.create({
             content: req.body.content,
-            // Add other necessary fields here
+            user: req.user._id  // Assuming req.user contains the authenticated user
         });
-        // res.send('Post created successfully!');
+
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    post: post
+                },
+                message: "Post created!"
+            });
+        }
+
+        return res.redirect('back');
     } catch (err) {
         console.error('Error creating post:', err);
-        res.status(500).send('Internal Server Error');
+
+        return res.redirect('back');
     }
 };

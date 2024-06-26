@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const port = 5502;  // Change to a different port number
 const db = require('./config/mongoose');
-const Contact = require('./models/contact');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
@@ -44,22 +43,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(passport.setAuthenticatedUser);
-
-var contactList = [
-    {
-        name: "Arpan",
-        phone: "1111111111"
-    },
-    {
-        name: "Tony Stark",
-        phone: "1234567890"
-    },
-    {
-        name: "Coding Ninjas",
-        phone: "12131321321"
-    }
-];
+app.use(passport.setAuthenticatedUser);
 
 // Define the route to handle the root URL
 app.get('/', function (req, res) {

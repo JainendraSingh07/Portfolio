@@ -8,5 +8,7 @@ router.get('/message', homeController.home);
 
 router.use('/message/user', require('./user'));
 router.use('/message/posts', require('./posts'));
+router.use('/message/comments', require('./comments'));
+
 
 module.exports = router;
