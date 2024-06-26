@@ -1,7 +1,7 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
-module.exports.create = async function(req, res){
+module.exports.create = async function(req, res) {
     try {
         let post = await Post.findById(req.body.post);
 
@@ -13,7 +13,7 @@ module.exports.create = async function(req, res){
             });
 
             post.comments.push(comment);
-            post.save();
+            await post.save();
 
             if (req.xhr) {
                 return res.status(200).json({
@@ -24,10 +24,35 @@ module.exports.create = async function(req, res){
                 });
             }
 
-            res.redirect('/message');
+            return res.redirect('/message');
+        } else {
+            return res.status(404).send('Post not found');
         }
     } catch (err) {
         console.error('Error creating comment:', err);
         return res.status(500).send('Internal Server Error');
+    }
+};
+
+module.exports.destroy = async function(req, res) {
+    try {
+        const comment = await Comment.findById(req.params.id);
+
+        if (!comment) {
+            return res.status(404).send('Comment not found');
+        }
+
+        if (comment.user.toString() !== req.user.id) {
+            return res.status(403).send('Unauthorized');
+        }
+
+        const postId = comment.post;
+        await Comment.deleteOne({ _id: req.params.id });
+        await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+
+        return res.redirect('back');
+    } catch (err) {
+        console.error('Error deleting comment:', err);
+        return res.status(500).send('Server Error');
     }
 };
