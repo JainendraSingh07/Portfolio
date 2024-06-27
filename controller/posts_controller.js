@@ -16,10 +16,11 @@ module.exports.create = async function(req, res) {
                 message: "Post created!"
             });
         }
+        req.flash('success' , 'Post Published !');
 
         return res.redirect('back');
     } catch (err) {
-        console.error('Error creating post:', err);
+        req.flash('error' , err);
 
         return res.redirect('back');
     }
@@ -39,10 +40,10 @@ module.exports.destroy = async function(req, res) {
         
         await Post.deleteOne({ _id: req.params.id });
         await Comment.deleteMany({ post: req.params.id });
-        
+        req.flash('success' , 'Post and associated comments deleted');
         return res.redirect('back');
     } catch (err) {
-        console.error(err);
+        req.flash('error' , err);
         return res.status(500).send('Server Error');
     }
 };

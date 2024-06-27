@@ -8,6 +8,8 @@ const passportLocal = require('./config/passport-local-strategy');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const expressLayouts = require('express-ejs-layouts');
+const flash = require('connect-flash');
+const customWare = require('./config/middleware.js');
 
 const app = express();
 
@@ -45,6 +47,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customWare.setflash);
 
 // Define the route to handle the root URL
 app.get('/', function (req, res) {
