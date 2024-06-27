@@ -18,6 +18,23 @@ module.exports.profile = async function(req, res) {
     }
 };
 
+module.exports.update = async function(req, res) {
+    try {
+        if (req.user.id == req.params.id) {
+            await User.findByIdAndUpdate(req.params.id, {
+                username: req.body.name,
+                email: req.body.email
+            });
+            return res.redirect('back');
+        } else {
+            return res.status(401).send('Unauthorized');
+        }
+    } catch (err) {
+        console.log('Error in updating user:', err);
+        return res.redirect('back');
+    }
+};
+
 module.exports.signUp = function(req, res) {
     if (req.isAuthenticated()) {
         return res.redirect('/message/user/profile');

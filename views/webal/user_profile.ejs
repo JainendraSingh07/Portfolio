@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css">
-    <title><%= title%></title>
+    <title><%= title %></title>
 </head>
 <body>
-    <h1>
-        profile page
-    </h1>
-    <p>Name: <%= profile_user.username %></p>
-    <p>Email: <%= profile_user.email %></p>
-    
+    <h1>Profile Page</h1>
+    <% if(user.id == profile_user.id) { %>
+        <!-- if user matches then show the form -->
+        <form action="/message/user/update/<%= profile_user.id %>" method="POST">
+            <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.username %>" required>
+            <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email %>" required>
+            <input type="submit" value="Update">
+        </form>
+    <% } else { %>    
+        <!-- else show only the profile info -->
+        <p><%= profile_user.username %></p>
+        <p><%= profile_user.email %></p>
+    <% } %>
 </body>
 </html>
