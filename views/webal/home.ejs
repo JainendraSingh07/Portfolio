@@ -6,7 +6,7 @@
     <title><%= title %></title>
 </head>
 <body>
-    <h1>WebAl / <%= title %></h1>
+    <h1>WebAL / <%= title %></h1>
 
     <section id="feed-posts">
         <h4>Posts</h4>
@@ -28,11 +28,14 @@
 
     <section id="user-friends">
         <h4>Friends</h4>
-        <% for(u of all_users){%>
+        <% for(u of all_users){ %>
             <p>
                 <a href="/message/user/profile/<%= u.id %>"><%= u.username %></a>
             </p>
         <% } %>
     </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- jQuery library -->
+    <script src="/assets/js/home_posts.js"></script>
 </body>
 </html>

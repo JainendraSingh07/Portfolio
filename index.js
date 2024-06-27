@@ -21,6 +21,7 @@ app.use(cookieParser());
 // Setting up the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 
 // Use express-ejs-layouts
