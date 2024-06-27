@@ -1,8 +1,9 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
-module.exports.home = async function(req, res) {
+module.exports.home = async function(req, res){
     try {
-        // Find posts and populate the user and comments' user
+        // Find posts and populate user and comments' user
         let posts = await Post.find({})
             .populate('user')
             .populate({
@@ -10,15 +11,19 @@ module.exports.home = async function(req, res) {
                 populate: {
                     path: 'user'
                 }
-            })
-            .exec();
+            });
 
+        // Find all users
+        let users = await User.find({});
+
+        // Render the home view with posts and users
         return res.render('webal/home', {
-            title: "Codeial | Home",
-            posts: posts
+            title: "WebAL | Home",
+            posts: posts,
+            all_users: users
         });
     } catch (err) {
-        console.error('Error fetching posts:', err);
-        return res.status(500).send('Internal Server Error');
+        console.log('Error:', err);
+        return res.redirect('back');
     }
-};
+}

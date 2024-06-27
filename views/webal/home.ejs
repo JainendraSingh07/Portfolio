@@ -20,56 +20,19 @@
         <div id="posts-list-container">
             <ul>
                 <% posts.forEach(post => { %>
-                    <li>
-                        <p>
-                            <% if (locals.user && locals.user.id == post.user.id) { %>
-                            <small>
-                                <a href="/message/posts/destroy/<%= post.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                  </svg></a>
-                            </small>
-                            <% } %>
-                            <%= post.content %>
-                            <br>
-                            <small>
-                                <%=  post.user.username  %>
-                            </small>
-                        </p>
-                        <div class="post-comments">
-                            <% if (locals.user){ %>
-                                <form action="/message/comments/create" method="POST">
-                                    <input type="text" name="content" placeholder="Type Here to add comment..." required>
-                                    <input type="hidden" name="post" value="<%= post._id %>" >
-                                    <input type="submit" value="Add Comment">
-                                </form>
-        
-                            <% } %>
-                            <div class="post-comments-list">
-                                <ul id="post-comments-<%= post._id %>">
-                                    <% for (comment of post.comments){%>
-                                        
-                                    <p>
-                                        <% if (locals.user && locals.user.id == comment.user.id) { %>
-                                            <small>
-                                                <a href="/message/comments/destroy/<%= comment.id %>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                                  </svg></a>
-                                            </small>
-                                            <% } %>
-                                        <%= comment.content %>
-                                        <br>
-                                        <small>
-                                            <%= comment.user.username %>
-                                        </small>
-                                    </p>    
-                                    <%} %>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
+                    <%- include('../partials/_post', { post: post }) %>
                 <% }) %>
             </ul>
         </div>
+    </section>
+
+    <section id="user-friends">
+        <h4>Friends</h4>
+        <% for(u of all_users){%>
+            <p>
+                <a href="/message/user/profile/<%= u.id %>"><%= u.username %></a>
+            </p>
+        <% } %>
     </section>
 </body>
 </html>

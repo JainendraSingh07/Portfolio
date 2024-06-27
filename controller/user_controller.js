@@ -1,10 +1,15 @@
 const User = require('../models/user');
 
-
 module.exports.profile = async function(req, res) {
     try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            console.log('User not found');
+            return res.redirect('back');
+        }
         return res.render('webal/user_profile', {
             title: "User Profile",
+            profile_user: user,
             user: req.user
         });
     } catch (err) {
@@ -14,8 +19,8 @@ module.exports.profile = async function(req, res) {
 };
 
 module.exports.signUp = function(req, res) {
-    if(req.isAuthenticated()){
-       return res.redirect('/message/user/profile');
+    if (req.isAuthenticated()) {
+        return res.redirect('/message/user/profile');
     }
     return res.render('webal/user_sign_up', {
         title: "WebAL | Sign Up"
@@ -23,10 +28,9 @@ module.exports.signUp = function(req, res) {
 }
 
 module.exports.signIn = function(req, res) {
-    if(req.isAuthenticated()){
-       return  res.redirect('/message/user/profile');
-     }
-
+    if (req.isAuthenticated()) {
+        return res.redirect('/message/user/profile');
+    }
     return res.render('webal/user_sign_in', {
         title: "WebAL | Sign In"
     });
@@ -63,7 +67,7 @@ module.exports.createSession = function(req, res) {
     return res.redirect('/message');
 }
 
-module.exports.destroySession = function(req, res){
+module.exports.destroySession = function(req, res) {
     req.logout(function(err) {
         if (err) {
             console.error('Logout Error:', err);
