@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const port = 5502;  // Change to a different port number
+const port = 5503;
 const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const customWare = require('./config/middleware.js');
+const Contact = require('./models/contact');
 
 const app = express();
 
@@ -22,8 +23,8 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
- 
-app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/uploads', express.static(path.join(__dirname + '/uploads')));
+
 // Use express-ejs-layouts
 app.use(expressLayouts);
 
@@ -59,9 +60,48 @@ app.get('/', function (req, res) {
 
 app.use('/', require('./routes/index.js')); // Routes should be added after middleware
 
+app.get('/contact', async function(req, res){
+    try {
+        const contacts = await Contact.find({});
+        return res.render('contact', {
+            title: "Contact List",
+            contact_list: contacts
+        });
+    } catch (err) {
+        console.log("Error in fetching contacts from db:", err);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+app.post('/create-contact', async function(req, res){
+    try {
+        const newContact = await Contact.create({
+            name: req.body.name,
+            phone: req.body.phone
+        });
+        console.log('New Contact:', newContact);
+        return res.redirect('back');
+    } catch (err) {
+        console.log('Error in creating a contact:', err);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
 app.listen(port, function (err) {
     if (err) {
         console.log('Error in running the server:', err);
     }
     console.log('Yup! My express server is running on port:', port);
+});
+
+app.get('/delete-contact/:id', async function(req, res){
+    try {
+        let contactId = req.params.id;
+        await Contact.findByIdAndDelete(contactId);
+        return res.redirect('back');
+    } catch (err) {
+        console.log('Error in deleting contact:', err);
+        return res.status(500).send("Internal Server Error");
+    }
 });
