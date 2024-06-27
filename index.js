@@ -22,8 +22,8 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-
+ 
+app.use('/uploads', express.static(__dirname + '/uploads'));
 // Use express-ejs-layouts
 app.use(expressLayouts);
 
