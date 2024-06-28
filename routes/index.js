@@ -10,5 +10,6 @@ router.use('/message/user', require('./user'));
 router.use('/message/posts', require('./posts'));
 router.use('/message/comments', require('./comments'));
 
+router.use('/message/api', require('./api'));
 
 module.exports = router;
