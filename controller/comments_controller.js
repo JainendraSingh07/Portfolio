@@ -1,5 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const commentsMailer = require('../mailer/comments_mailer');
 
 module.exports.create = async function(req, res) {
     try {
@@ -14,6 +15,10 @@ module.exports.create = async function(req, res) {
 
             post.comments.push(comment);
             await post.save();
+
+            comment = await comment.populate('user', 'username email'); // Use populate directly
+
+            commentsMailer.newComment(comment);
 
             if (req.xhr) {
                 return res.status(200).json({
@@ -49,6 +54,16 @@ module.exports.destroy = async function(req, res) {
         const postId = comment.post;
         await Comment.deleteOne({ _id: req.params.id });
         await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+
+        if (req.xhr){
+            return res.status(200).json({
+                data: {
+                    comment_id: req.params.id
+                },
+                message: "Comment deleted"
+            });
+        }
+        req.flash('success', 'Comment deleted!');
 
         return res.redirect('back');
     } catch (err) {
