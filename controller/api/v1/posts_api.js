@@ -22,28 +22,35 @@ module.exports.index = async function(req, res){
 
 module.exports.destroy = async function(req, res) {
     try {
-        const post = await Post.findById(req.params.id);
-        
-        // if (!post) {
-        //     return res.status(404).send('Post not found');
-        // }
-        
-        // if (post.user.toString() !== req.user.id) {
-        //     return res.status(403).send('Unauthorized');
-        // }
-        
-        await Post.deleteOne({ _id: req.params.id });
-        await Comment.deleteMany({ post: req.params.id });
+        // Find the post by ID
+        let post = await Post.findById(req.params.id);
 
-        // req.flash('success' , 'Post and associated comments deleted');
-        return res.json(200,{
-            message: "post and associated comments deleted successfully !"
-        
-        });
+        // Check if the post exists and if the user is authorized to delete it
+        if (!post) {
+            return res.status(404).json({
+                message: "Post not found!"
+            });
+        }
+
+        if (post.user == req.user.id) {
+            // Remove the post
+            await post.remove();
+
+            // Delete associated comments
+            await Comment.deleteMany({ post: req.params.id });
+
+            return res.status(200).json({
+                message: "Post and associated comments deleted successfully!"
+            });
+        } else {
+            return res.status(401).json({
+                message: "You cannot delete this post!"
+            });
+        }
     } catch (err) {
-        console.log('*******', err);
-        return res.json(500, {
-            message: "Internal server error"
+        console.log('********', err);
+        return res.status(500).json({
+            message: "Internal Server Error"
         });
     }
 };

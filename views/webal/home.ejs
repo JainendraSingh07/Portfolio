@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>WebAL / <%= title %></h1>
-
+<div>
     <section id="feed-posts">
         <h4>Posts</h4>
         <% if(locals.user) { %>
@@ -34,7 +34,20 @@
             </p>
         <% } %>
     </section>
+</div>
 
+<!-- importing this script for creating the comments -->
+<script src="/assets/js/home_post_comments.js" ></script>
+<script src="/assets/js/home_posts.js"></script>
+
+<!-- CHANGE :: import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
+<script src="/assets/js/toggle_likes.js"></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- jQuery library -->
     <script src="/assets/js/home_posts.js"></script>
 </body>
