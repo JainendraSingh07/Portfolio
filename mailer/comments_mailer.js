@@ -12,7 +12,7 @@ exports.newComment = async (comment) => {
             html: htmlString
         });
 
-        console.log('Message sent', info);
+        // console.log('Message sent', info);
         return info;
     } catch (err) {
         console.log('Error in sending mail', err);
