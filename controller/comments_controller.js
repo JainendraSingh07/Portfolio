@@ -9,46 +9,49 @@ module.exports.create = async function(req, res) {
     try {
         let post = await Post.findById(req.body.post);
 
-        if (post) {
-            let comment = await Comment.create({
-                content: req.body.content,
-                post: req.body.post,
-                user: req.user._id
-            });
-
-            post.comments.push(comment);
-            await post.save();
-
-            comment = await comment.populate('user', 'username email'); // Use populate directly
-
-            // commentsMailer.newComment(comment);
-            let job = queue.create('emails', comment).save(function(err){
-                if (err){
-                    console.log('Error in sending to the queue', err);
-                    return;
-                }
-                console.log('job enqueued', job.id);
-
-            })
-
-            if (req.xhr) {
-                return res.status(200).json({
-                    data: {
-                        comment: comment
-                    },
-                    message: "Comment created!"
-                });
-            }
-
-            return res.redirect('/message');
-        } else {
+        if (!post) {
             return res.status(404).send('Post not found');
         }
+
+        let comment = await Comment.create({
+            content: req.body.content,
+            post: req.body.post,
+            user: req.user._id
+        });
+
+        post.comments.push(comment);
+        await post.save();
+
+        // Populate user info
+        comment = await comment.populate('user', 'username email');
+
+        // Create job for sending emails (ensure queue is correctly set up)
+        let job = queue.create('emails', comment).save(function(err) {
+            if (err) {
+                console.log('Error in sending to the queue', err);
+                return;
+            }
+            console.log('job enqueued', job.id);
+        });
+
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    comment: comment
+                },
+                message: "Comment created!"
+            });
+        }
+
+        req.flash('success', 'Comment added!');
+        return res.redirect('back');
     } catch (err) {
         console.error('Error creating comment:', err);
+        req.flash('error', 'Error creating comment!');
         return res.status(500).send('Internal Server Error');
     }
 };
+
 
 module.exports.destroy = async function(req, res) {
     try {
@@ -58,7 +61,11 @@ module.exports.destroy = async function(req, res) {
             return res.status(404).send('Comment not found');
         }
 
-        if (comment.user.toString() !== req.user.id) {
+        // Debugging logs to ensure correct user check
+        // console.log('Current User ID:', req.user._id);
+        // console.log('Comment User ID:', comment.user);
+
+        if (comment.user.toString() !== req.user._id.toString()) {
             return res.status(403).send('Unauthorized');
         }
 
@@ -66,9 +73,9 @@ module.exports.destroy = async function(req, res) {
         await Comment.deleteOne({ _id: req.params.id });
         await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
 
-        await Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
+        await Like.deleteMany({ likeable: comment._id, onModel: 'Comment' });
 
-        if (req.xhr){
+        if (req.xhr) {
             return res.status(200).json({
                 data: {
                     comment_id: req.params.id
@@ -76,11 +83,12 @@ module.exports.destroy = async function(req, res) {
                 message: "Comment deleted"
             });
         }
-        req.flash('success', 'Comment deleted!');
 
+        req.flash('success', 'Comment deleted!');
         return res.redirect('back');
     } catch (err) {
         console.error('Error deleting comment:', err);
-        return res.status(500).send('Server Error');
+        req.flash('error', 'Error deleting comment!');
+        return res.status(500).send('Internal Server Error');
     }
 };

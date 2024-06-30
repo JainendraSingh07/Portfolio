@@ -3,20 +3,23 @@ const User = require('../models/user');
 
 module.exports.home = async function(req, res){
     try {
-        // Find posts and populate user and comments' user
+        // Find posts and populate user and comments' user and likes
         let posts = await Post.find({})
-        .sort('-createdAt')
-        .populate('user')
-        .populate({
-            path: 'comments',
-            populate: {
-                path: 'user'
-            },
-            populate: {
-                path: 'likes'
-            }
-        }).populate('comments')
-        .populate('likes');
+            .sort('-createdAt')
+            .populate('user')
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'user'
+                }
+            })
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'likes'
+                }
+            })
+            .populate('likes');
 
         // Find all users
         let users = await User.find({});

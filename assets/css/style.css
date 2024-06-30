@@ -377,4 +377,7 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus,
-button:focus
+button:focus {
+    outline: none; /* Example rule: Remove the default outline */
+    border: 1px solid #2857a4; /* Example rule: Add a custom border */
+}

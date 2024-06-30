@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     // Class to handle comment creation and deletion for each post
     class PostComments {
         // Initialize the instance of the class for a specific post
@@ -11,7 +12,7 @@ $(document).ready(function() {
 
             let self = this;
             // Call for all the existing comments
-            $(' .delete-comment-button', this.postContainer).each(function() {
+            $(this.postContainer).find('.delete-comment-button').each(function() {
                 self.deleteComment($(this));
             });
         }
@@ -24,15 +25,15 @@ $(document).ready(function() {
 
                 $.ajax({
                     type: 'post',
-                    url: '/comments/create',
+                    url: '/message/comments/create', // Adjusted URL to match your route
                     data: $(self).serialize(),
                     success: function(data) {
                         let newComment = pSelf.newCommentDom(data.data.comment);
                         $(`#post-comments-${postId}`).prepend(newComment);
-                        pSelf.deleteComment($(' .delete-comment-button', newComment));
+                        pSelf.deleteComment($('.delete-comment-button', newComment));
 
                         // Enable the functionality of the toggle like button on the new comment
-                        new ToggleLike($(' .toggle-like-button', newComment));
+                        new ToggleLike($('.toggle-like-button', newComment));
 
                         new Noty({
                             theme: 'relax',
@@ -62,7 +63,7 @@ $(document).ready(function() {
                             ${comment.content}
                             <br>
                             <small>
-                                ${comment.user.name}
+                                ${comment.user.username}
                             </small>
                             <small>
                                 <a class="toggle-like-button" data-likes="0" href="/message/likes/toggle/?id=${comment._id}&type=Comment">
@@ -98,4 +99,11 @@ $(document).ready(function() {
             });
         }
     }
+
+    // Initialize PostComments for each post on the page
+    $('.post-comments').each(function() {
+        let postId = $(this).data('post-id');
+        new PostComments(postId);
+    });
+
 });

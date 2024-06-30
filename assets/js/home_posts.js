@@ -1,3 +1,11 @@
+// home_posts.js
+
+// Function definition
+function PostComments(postId) {
+    // Assuming you have some implementation here
+    // console.log(`PostComments initialized for post: ${postId}`);
+}
+
 $(document).ready(function() {
     // Method to submit the form data for a new post using AJAX
     let createPost = function() {
