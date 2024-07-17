@@ -1,10 +1,20 @@
-<div>
-
-    <p>Hi <%= comment.user.username%>!</p>
-    <br>
-    <br>
-    <p>Your comment <strong><%= comment.content %></strong> just got pubished on codeial.</p>
-    <br>
-    <br>
-    <p>Thanks!</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Example</title>
+    <link rel="stylesheet" href="<%= assetPath('css/new_comment.css') %>"> <!-- Link your CSS file here -->
+</head>
+<body>
+    <div class="notification-container">
+        <p>Hi <%= comment.user.username %>!</p>
+        <br>
+        <br>
+        <p>Your comment <strong><%= comment.content %></strong> just got published on WebAL.</p>
+        <br>
+        <br>
+        <p>Thanks!</p>
+    </div>
+</body>
+</html>

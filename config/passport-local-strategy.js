@@ -31,16 +31,21 @@ passport.serializeUser(function(user, done) {
 // Deserializing the user from the key in the cookies
 passport.deserializeUser(async function(id, done) {
     try {
+        console.log(`Deserializing user with id: ${id}`);
         const user = await User.findById(id);
         if (!user) {
-            return done(new Error('User not found'), null);
+            console.log(`User with id ${id} not found`);
+            // Instead of throwing an error, you can handle it gracefully
+            return done(null, false, { message: 'User not found' });
         }
         return done(null, user);
     } catch (err) {
-        console.log('Error in finding user --> Passport');
+        console.error('Error in finding user:', err);
         return done(err, null);
     }
 });
+
+
 
 // Check if the user is authenticated
 passport.checkAuthentication = function(req, res, next) {

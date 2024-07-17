@@ -1,0 +1,28 @@
+/* notification.css */
+
+.notification-container {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.notification-container p {
+    margin: 10px 0;
+}
+
+.notification-container strong {
+    color: #333;
+}
+
+.notification-container p:first-child {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.notification-container p:last-child {
+    font-style: italic;
+    color: #666;
+}

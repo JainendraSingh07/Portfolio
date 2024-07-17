@@ -1,0 +1,71 @@
+/* chat_box.css */
+
+#user-chat-box {
+  border: 3px dashed grey;
+  /* width: 300px; */
+  max-width: 100%; /* Ensure chat box doesn't exceed screen width */
+  background: white;
+  padding: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+#user-chat-box #chat-messages-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px; /* Limit height of message list */
+  overflow-y: auto; /* Enable scrolling */
+}
+
+#user-chat-box #chat-messages-list li {
+  margin-bottom: 10px;
+}
+
+#user-chat-box #chat-messages-list .other-message {
+  text-align: left;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #ffa0a0;
+  border-radius: 10px;
+  margin-right: 50%;
+}
+
+#user-chat-box #chat-messages-list .self-message {
+  text-align: right;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #a0dcff;
+  border-radius: 10px;
+  margin-left: 50%;
+}
+
+#user-chat-box #chat-messages-list .other-message span,
+#user-chat-box #chat-messages-list .self-message span {
+  display: inline-block;
+  padding: 10px;
+}
+
+#user-chat-box #chat-message-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+#user-chat-box #chat-message-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#user-chat-box #send-message {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

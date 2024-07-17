@@ -1,0 +1,29 @@
+#layout-footer {
+  color: white;
+  background: black;
+  padding: 20px 35px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#layout-footer a {
+  color: white;
+  text-decoration: none;
+}
+
+#layout-footer .footer-nav ul {
+  list-style: none;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  #layout-footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+  }
+
+  #layout-footer .footer-nav ul {
+    padding: 0;
+  }
+}

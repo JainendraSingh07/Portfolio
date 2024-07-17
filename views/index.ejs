@@ -6,7 +6,7 @@
     
     <!-- <link rel="stylesheet" type="text/javascript" href="/assets/js/"> -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<%= assetPath('css/style.css') %>">
     <title><%= title%></title>
     
 </head>
@@ -15,9 +15,6 @@
         <nav>
 
             <ul class="horizontal-list text-center nav-menu">
-                <li>
-                    <a href="#"> Home </a>
-                </li>
                 <li>
                     <a href="#about"> About </a>
                 </li>
@@ -28,10 +25,7 @@
                     <a href="#education">Education</a>
                 </li>
                 <li>
-                    <a href="#portfolio">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#contact">Contact</a>
+                    <a href="#portfolio">Project</a>
                 </li>
             </ul>
         </nav>
@@ -45,30 +39,16 @@
 <div>
     <ul class="horizontal-list text-center social-icons">
         <li>
-            <a href="#">
-                <i class="fab fa-linkedin-in"></i>
+            <a href="https://github.com/JainendraSingh07">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+                  </svg>
             </a>
         </li>
 
         <li>
-            <a href="#">
-                <i class="fab fa-stack-overflow"></i>
-            </a>
-        </li>
-
-        <li>
-            <a href="#">
+            <a href="https://www.linkedin.com/in/jainendrasingh18/">
                 <i class="fab fa-linkedin-in"></i>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fab fa-stack-overflow"></i>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="fab fa-stack-overflow"></i>
             </a>
         </li>
     </ul>
@@ -89,13 +69,27 @@
             <div id="about-para">
 
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and <span class="text-highlight">typesetting industry</span>. Lorem Ipsum has been the industry's standard <span class="text-highlight">dummy text ever</span> since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s <span class="text-highlight">with the release of Letraset</span> sheets containing Lorem Ipsum.
+                    Hello everyone! I'm <span class="text-highlight">Jainendra</span>, a diligent and multitasking
+                    individual who thrives in leadership
+                    roles. Currently pursuing my undergraduate degree in Computer Science.<br> I am driven
+                    by
+                    a strong work ethic and a passion for continuous learning.
 
+                    With a firm grasp of programming fundamentals, particularly in <span class="text-highlight">C/C++,
+                        data structures, and
+                        competitive programming</span>, I am adept at solving complex problems and approaching
+                    challenges with a
+                    logical mindset.
+                    <br>
+                    Additionally, I possess extensive experience as a <span class="text-highlight">full-stack developer</span>, crafting dynamic web
+                    applications that offer seamless user experiences. From designing captivating user interfaces to
+                    developing robust back-end systems, I strive for excellence in all aspects of the development
+                    process.
                 </p>
             </div>
         </section>
 
-        <section id="skills">   <!--skills section -->
+        <section id="skills">
             <h1 class="section-heading mb75px ">
                 <span>
                     <i class="fas fa-chalkboard-teacher"></i>
@@ -103,70 +97,67 @@
                 <span> SKILLS </span>
             </h1>
 
-            <div class="skill-display">
+            <div id = "skills-container" class="skills-display">
                 <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
+                    <div class="fifty-percent mb-blue" data-bar-width="95">
                         <div class="skill-name">
                             <span> C++ </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div class="eighty-five-percent mb-orange" data-bar-width="90" >
+                        <div class="skill-name">
+                            <span> HTML </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div class="eighty-percent mb-light-purple" data-bar-width="100">
+                        <div class="skill-name">
+                            <span> CSS </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div class="fifty-percent mb-teal" data-bar-width="79">
+                        <div class="skill-name">
+                            <span> Javascript </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div class="fifty-percent mb-brown" data-bar-width="75">
+                        <div class="skill-name">
+                            <span> NodeJs </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div class="eighty-percent mb-purple" data-bar-width="85">
+                        <div class="skill-name">
+                            <span> MongoDB </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-progress">
+                    <div class="eighty-percent mb-white" data-bar-width="75">
+                        <div class="skill-name">
+                            <span> DSA </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
+                    <div class="eighty-percent mb-white" data-bar-width="65">
                         <div class="skill-name">
-                            <span> C++ </span>
+                            <span> DBMS </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
-                        <div class="skill-name">
-                            <span> C++ </span>
-                        </div>
-                    </div>
-                </div>
+                
 
-                <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
-                        <div class="skill-name">
-                            <span> C++ </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
-                        <div class="skill-name">
-                            <span> C++ </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
-                        <div class="skill-name">
-                            <span> C++ </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
-                        <div class="skill-name">
-                            <span> C++ </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-progress">
-                    <div class="ninety-five-percent mb-blue">
-                        <div class="skill-name">
-                            <span> C++ </span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </section>
@@ -181,13 +172,26 @@
 
             <div class="timeline">
                 <div class="timeline-box">
+                    	<h2>Army Public School, Ayodhya</h2>
+                    <br>
+                        CBSE (Class X), Aggregate: 81%
+
                 </div>
                 <div class="timeline-box">
+                    <h2>Army Public School, Ayodhya</h2>
+                    <br>
+CBSE (Class XII), Aggregate: 81%
+
                 </div>
                 <div class="timeline-box">
+                <h2>Gurukul Kangri University (Deemed to be University) </h2>	
+                <br>
+B. Tech (CSE),Till now  CGPA: 8.3
+<br>
+2021-2025
+
                 </div>
-                <div class="timeline-box">
-                </div>
+                
                 <div class="timeline-divider">
                     <div class="timeline-traveller">
                         <i class="fas fa-plane"></i>
@@ -201,33 +205,23 @@
                 <span>
                     <i class="fas fa-th-list"></i>
                 </span>
-                <span> Portfolio </span>
+                <span> Project </span>
             </h1>
 
             <div id="portfolio-container">
 
                 <div class="portfolio-image-container">
-                    <img src="/image/57088.jpg">
+                    <img src="/image/chat.jpg">
                     <div class="portfolio-details">
                         <a href="/message">
                         <p>
-                            Write here basic details about the project.
+                            CLICK HERE ! POST COMMENT
                         </p>
                     </a>
                     </div>
 
                 </div>
-                <div class="portfolio-image-container">
-                    <img src="/image/chat.jpg">
-                    <div class="portfolio-details">
-                        <a href="/chat">
-                        <p>
-                            Write here basic details about the project.
-                        </p>
-                    </a>
-                    </div>
-
-                </div>
+                
                 <div class="portfolio-image-container">
                     
                         <img src="/image/contact.jpg">
@@ -235,7 +229,7 @@
                     <div class="portfolio-details">
                         <a href="/contact">
                         <p>
-                            Write here basic details about the project.
+                                CLICK HERE ! CONTACT SAVER
                         </p>
                     </a>
                     </div>
@@ -244,45 +238,10 @@
             </div>
         </section>
 
-        <section id="contact">   <!--contact section -->
-            <h1 class="section-heading mb50px">
-                <span>
-                    <i class="far fa-address-card"></i>
-                </span>
-                <span> Contact </span>
-            </h1>
-            <div id="contact-container">
-
-                <div id="contact-form-container">
-                    <form id="contact-form">
-                        <input id="input-name" name="name" type="text" placeholder="Your Name">
-                        <input id="input-email" name="input-email" type="text" required="" placeholder="Your Email">
-                        <textarea id="input-message" name="input-message" rows="2" cols="40" placeholder="Message"></textarea>
-                        <button class="sub-btn" type="submit">SEND MESSAGE</button>
-                    </form>
-                </div>
-                <div id="my-details-container">
-
-                    <h3> Get In touch </h3>
-                    <p> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-
-                    <h3> My Address </h3>
-                    <div class="my-details-info-container">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Uttar-Pradesh , India</span>
-                    </div>
-                    <div class="my-details-info-container">
-                        <i class="fas fa-mobile-alt"></i>
-                        <span>9696864385</span>
-                    </div>
-                    <div class="my-details-info-container">
-                        <i class="far fa-envelope"></i>
-                        <span>jainendrasingh182@gmail.com</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
     </main>
+
+    <script src="/js/home.js"></script>
     
 </body>
 </html>

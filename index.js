@@ -1,4 +1,6 @@
 const express = require('express');
+const env = require('./config/environment');
+const logger = require('morgan');
 const path = require('path');
 const port = 5503;
 const db = require('./config/mongoose');
@@ -6,19 +8,32 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
-const passportGoogle = require('./config/passport-google-oauth2-strategy.js');
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
-const customWare = require('./config/middleware.js');
+const customWare = require('./config/middleware');
+const sassMiddleware = require('node-sass-middleware');
 const Contact = require('./models/contact');
 const http = require('http');
 const cors = require('cors');
 
 const app = express();
+require('./config/view-helpers')(app);
 const chatServer = http.createServer(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+
+if (env.name == 'development'){
+    app.use(sassMiddleware({
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        dest: path.join(__dirname, env.asset_path, 'css'),
+        debug: true,
+        outputStyle: 'extended',
+        prefix: '/css'
+    }));
+}
+
 
 // Middleware to parse cookies
 app.use(cookieParser());
@@ -34,11 +49,14 @@ app.use(cors({
 }));
 
 // Serve static files from the 'assets' directory
-app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.static(path.join(__dirname, env.asset_path )));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
+app.use(logger(env.morgan.mode, env.morgan.options));
 // Setting up the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
 
 // Use express-ejs-layouts
 app.use(expressLayouts);
@@ -50,7 +68,7 @@ app.set('layout extractScripts', true);
 // Session configuration
 const sessionMiddleware = session({
     name: 'WebAL',
-    secret: 'blah something',
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {

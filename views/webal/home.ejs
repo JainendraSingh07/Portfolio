@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <!-- Including jQuery library -->
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="<%= assetPath('css/home.css') %>">
+    <link rel="stylesheet" href="<%= assetPath('css/post.css') %>">
+    <link rel="stylesheet" href="<%= assetPath('css/user_sign_up.css') %>">
+    
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>WebAL / <%= title %></h1>
+    <!-- <h1>WebAL / <%= title %></h1> -->
     <div>
         <section id="feed-posts">
             <h4>Posts</h4>
@@ -65,7 +69,7 @@
     <% if (locals.user) { %>
         <script>
             // Initialize the ChatEngine with user's email
-            new ChatEngine('user-chat-box', '<%= locals.user.email %>');
+            new ChatEngine('user-chat-box', '<%= locals.user.username %>');
         </script>
     <% } %>
 </body>
